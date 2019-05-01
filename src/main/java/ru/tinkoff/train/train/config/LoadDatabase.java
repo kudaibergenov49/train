@@ -3,6 +3,7 @@ package ru.tinkoff.train.train.config;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import ru.tinkoff.train.train.constant.Constant;
 import ru.tinkoff.train.train.model.Train;
 import ru.tinkoff.train.train.repository.TrainRepository;
 
@@ -13,8 +14,8 @@ public class LoadDatabase {
     @Bean
     CommandLineRunner initDatabase(TrainRepository repository) {
         return args -> {
-            log.info("Preloading " + repository.save(new Train("100",3)));
-            log.info("Preloading " + repository.save(new Train("001",3)));
+            log.info("Preloading " + repository.save(new Train(Constant.firstTrainValue, Constant.firstTrainCount)));
+            log.info("Preloading " + repository.save(new Train(Constant.secondTrainValue, Constant.secondTrainCount)));
         };
     }
 }

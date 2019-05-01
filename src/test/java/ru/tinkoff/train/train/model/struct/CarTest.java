@@ -1,6 +1,7 @@
 package ru.tinkoff.train.train.model.struct;
 
 import org.junit.Test;
+import ru.tinkoff.train.train.constant.Constant;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -9,65 +10,65 @@ public class CarTest {
 
     @Test
     public void switchOff() {
-        Car<Character> car = new Car<>('1');
+        Car<Character> car = new Car<>(Constant.switchOn);
         car.switchOff();
-        assertEquals('0', car.getData());
-        assertNotEquals('1', car.getData());
+        assertEquals(Constant.switchOf, car.getData());
+        assertNotEquals(Constant.switchOn, car.getData());
     }
 
     @Test
     public void switchOn() {
-        Car<Character> car = new Car<>('0');
+        Car<Character> car = new Car<>(Constant.switchOf);
         car.switchOn();
-        assertEquals('1', car.getData());
-        assertNotEquals('0', car.getData());
+        assertEquals(Constant.switchOn, car.getData());
+        assertNotEquals(Constant.switchOf, car.getData());
     }
 
     @Test
     public void findLightOnPosition() {
-        Car<Character> car = new Car<>('1');
-        car.addCarriageAtRight('0');
-        car.addCarriageAtRight('0');
-        car.addCarriageAtRight('0');
-        car.addCarriageAtRight('0');
-        car.addCarriageAtRight('0');
-        car.addCarriageAtRight('1');
-        car.addCarriageAtRight('0');
-        car.addCarriageAtRight('0');
+        Car<Character> car = new Car<>(Constant.switchOn);
+        car.addRightCar(Constant.switchOf);
+        car.addRightCar(Constant.switchOf);
+        car.addRightCar(Constant.switchOf);
+        car.addRightCar(Constant.switchOf);
+        car.addRightCar(Constant.switchOf);
+        car.addRightCar(Constant.switchOn);
+        car.addRightCar(Constant.switchOf);
+        car.addRightCar(Constant.switchOf);
         assertEquals(6, car.findLightOnPosition());
     }
 
     @Test
     public void rightNPosition() {
-        Car<Character> car = new Car<>('1');
-        car.addCarriageAtRight('0');
-        car.addCarriageAtRight('0');
-        car.addCarriageAtRight('0');
-        car.addCarriageAtRight('0');
-        car.addCarriageAtRight('0');
-        car.addCarriageAtRight('1');
-        car.addCarriageAtRight('0');
-        car.addCarriageAtRight('0');
-        assertEquals('1', car.rightNPosition(6).getData());
+        Car<Character> car = new Car<>(Constant.switchOn);
+        car.addRightCar(Constant.switchOf);
+        car.addRightCar(Constant.switchOf);
+        car.addRightCar(Constant.switchOf);
+        car.addRightCar(Constant.switchOf);
+        car.addRightCar(Constant.switchOf);
+        car.addRightCar(Constant.switchOn);
+        car.addRightCar(Constant.switchOf);
+        car.addRightCar(Constant.switchOf);
+        assertEquals(Constant.switchOn, car.rightNPosition(6).getData());
     }
 
     @Test
     public void leftNPosition() {
-        Car<Character> car = new Car<>('0');
-        car.addCarriageAtLeft('0');
-        car.addCarriageAtLeft('0');
-        car.addCarriageAtLeft('0');
-        car.addCarriageAtLeft('0');
-        car.addCarriageAtLeft('1');
-        car.addCarriageAtLeft('0');
-        car.addCarriageAtLeft('0');
-        assertEquals('1', car.leftNPosition(5).getData());
+        Car<Character> car = new Car<>(Constant.switchOf);
+        car.addLeftCar(Constant.switchOf);
+        car.addLeftCar(Constant.switchOf);
+        car.addLeftCar(Constant.switchOf);
+        car.addLeftCar(Constant.switchOf);
+        car.addLeftCar(Constant.switchOn);
+        car.addLeftCar(Constant.switchOf);
+        car.addLeftCar(Constant.switchOf);
+        assertEquals(Constant.switchOn, car.leftNPosition(5).getData());
     }
 
     @Test
     public void addCarriage() {
-        Car<Character> car = new Car<>('0');
-        car.addCarriageAtRight('1');
-        assertEquals(car.getNext().getData(),'1');
+        Car<Character> car = new Car<>(Constant.switchOf);
+        car.addRightCar(Constant.switchOn);
+        assertEquals(car.getNext().getData(), Constant.switchOn);
     }
 }

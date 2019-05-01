@@ -16,6 +16,7 @@ import ru.tinkoff.train.train.controller.TrainController;
 public class TrainApplicationTests {
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
     private TrainController trainController;
 
     @Test

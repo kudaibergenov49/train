@@ -4,9 +4,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.tinkoff.train.train.model.Train;
-import ru.tinkoff.train.train.model.struct.CircleLinkedList;
+import ru.tinkoff.train.train.model.struct.CircleTrainModel;
 import ru.tinkoff.train.train.service.DBService;
-import ru.tinkoff.train.train.service.InputValueService;
+import ru.tinkoff.train.train.service.InputService;
 
 import java.util.List;
 
@@ -14,12 +14,12 @@ import java.util.List;
 @RequestMapping("train")
 public class TrainController {
     private final DBService dbService;
-    private final InputValueService inputValueService;
+    private final InputService inputService;
 
     @Autowired
-    public TrainController(DBService dbService, InputValueService inputValueService) {
+    public TrainController(DBService dbService, InputService inputService) {
         this.dbService = dbService;
-        this.inputValueService = inputValueService;
+        this.inputService = inputService;
     }
 
     @GetMapping
@@ -34,13 +34,13 @@ public class TrainController {
 
     @PostMapping
     public Train create(@RequestBody String value) {
-        value = inputValueService.jsonToString(value);
-        if(!inputValueService.checkValue(value)){
+        value = inputService.jsonToString(value);
+        if (!inputService.checkValue(value)) {
             return null;
         }
         Train train = dbService.findByValue(value);
         if (train == null) {
-            CircleLinkedList<Character> composition = inputValueService.convertToCircleLinkedList(value);
+            CircleTrainModel<Character> composition = inputService.convertToCircleTrainModel(value);
             int length = composition.calculateLength();
             train = dbService.save(new Train(value, length));
             return dbService.save(train);
@@ -51,7 +51,7 @@ public class TrainController {
     @PutMapping("{id}")
     public Train update(@PathVariable("id") Train trainfromDB, @RequestBody Train train) {
         BeanUtils.copyProperties(train, trainfromDB, "id");
-        trainfromDB.setCount(inputValueService.convertToCircleLinkedList(trainfromDB.getValue()).calculateLength());
+        trainfromDB.setCount(inputService.convertToCircleTrainModel(trainfromDB.getValue()).calculateLength());
         return dbService.save(trainfromDB);
     }
 

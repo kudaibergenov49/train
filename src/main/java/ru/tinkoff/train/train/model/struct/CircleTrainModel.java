@@ -1,11 +1,13 @@
 package ru.tinkoff.train.train.model.struct;
 
+import ru.tinkoff.train.train.constant.Constant;
+
 /**
  * Класс для описания кольцевого поезда
  *
  * @param <Char> значения 0 и 1(0 - свет выключен,1 - включен)
  */
-public class CircleLinkedList<Char> {
+public class CircleTrainModel<Char> {
     private Car<Char> head;
     private Car<Char> tail;
 
@@ -13,7 +15,7 @@ public class CircleLinkedList<Char> {
         return head;
     }
 
-    public CircleLinkedList() {
+    public CircleTrainModel() {
         head = null;
         tail = null;
     }
@@ -47,7 +49,7 @@ public class CircleLinkedList<Char> {
             lightOnPosition = head.findLightOnPosition();
             head.rightNPosition(lightOnPosition).switchOff();
             head.leftNPosition(lightOnPosition);
-            if (head.getData() == '0') {
+            if (head.getData() == Constant.switchOf) {
                 return lightOnPosition;
             }
         }

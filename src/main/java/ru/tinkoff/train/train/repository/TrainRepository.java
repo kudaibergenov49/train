@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import ru.tinkoff.train.train.model.Train;
 
 public interface TrainRepository extends JpaRepository<Train, Long> {
-    Train findByValue(String value);
+     Train findByValue(String value);
 }

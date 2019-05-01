@@ -1,9 +1,9 @@
 package ru.tinkoff.train.train.model;
 
-public class JsonConverter {
+public class JsonValue {
     private String text;
 
-    public JsonConverter(String text) {
+    public JsonValue(String text) {
         this.text = text;
     }
 

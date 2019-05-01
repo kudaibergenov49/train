@@ -1,5 +1,7 @@
 package ru.tinkoff.train.train.model.struct;
 
+import ru.tinkoff.train.train.constant.Constant;
+
 /**
  * Состав поезда
  * @param <Char> значения 0 и 1(0 - свет выключен,1 - включен)
@@ -15,19 +17,19 @@ class Car<Char> {
         previous = null;
     }
 
-    void addCarriageAtRight(char data) {
+    void addRightCar(char data) {
         if (this.next == null) {
             this.next = new Car<>(data);
         } else {
-            this.next.addCarriageAtRight(data);
+            this.next.addRightCar(data);
         }
     }
 
-    void addCarriageAtLeft(char data) {
+    void addLeftCar(char data) {
         if (this.previous == null) {
             this.previous = new Car<>(data);
         } else {
-            this.previous.addCarriageAtLeft(data);
+            this.previous.addLeftCar(data);
         }
     }
 
@@ -35,7 +37,7 @@ class Car<Char> {
         return next;
     }
 
-    public char getData() {
+    public Character getData() {
         return data;
     }
 
@@ -48,11 +50,11 @@ class Car<Char> {
     }
 
     void switchOff() {
-        this.data = '0';
+        this.data = Constant.switchOf;
     }
 
     void switchOn() {
-        this.data = '1';
+        this.data = Constant.switchOn;
     }
 
     /**
@@ -62,7 +64,7 @@ class Car<Char> {
     int findLightOnPosition() {
         int position = 1;
         Car<Char> current = this;
-        while (current.next.data == '0') {
+        while (current.next.data == Constant.switchOf) {
             position++;
             current = current.next;
         }
