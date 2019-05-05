@@ -42,8 +42,7 @@ public class TrainController {
         if (train == null) {
             CircleTrainModel<Character> composition = inputService.convertToCircleTrainModel(value);
             int length = composition.calculateLength();
-            train = dbService.save(new Train(value, length));
-            return dbService.save(train);
+            return dbService.save(new Train(value, length));
         }
         return null;
     }
