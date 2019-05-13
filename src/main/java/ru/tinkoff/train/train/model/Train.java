@@ -1,14 +1,10 @@
 package ru.tinkoff.train.train.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "train")
-@ToString(of = {"id","value","count"})
-@EqualsAndHashCode(of = {"id"})
 public class Train {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,7 +16,7 @@ public class Train {
 
     }
 
-    public Train(String value,Integer count) {
+    public Train(String value, Integer count) {
         this.value = value;
         this.count = count;
     }
@@ -47,5 +43,28 @@ public class Train {
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Train)) return false;
+        Train train = (Train) o;
+        return Objects.equals(getValue(), train.getValue()) &&
+                Objects.equals(getCount(), train.getCount());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getValue(), getCount());
+    }
+
+    @Override
+    public String toString() {
+        return "Train{" +
+                "id=" + id +
+                ", value='" + value + '\'' +
+                ", count=" + count +
+                '}';
     }
 }
