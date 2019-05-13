@@ -11,10 +11,6 @@ public class CircleTrainModel<Char> {
     private Car<Char> head;
     private Car<Char> tail;
 
-    public Car<Char> getHead() {
-        return head;
-    }
-
     public CircleTrainModel() {
         head = null;
         tail = null;
